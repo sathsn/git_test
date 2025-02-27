@@ -1,7 +1,8 @@
-import gradio as gr
+from transformers import pipeline
 
-def greet(name):
-    return "Hello " + name + "!!"
+summarizer = pipeline("summarization")
+text = "Hugging Face is an AI research company that develops open-source AI tools."
+summary = summarizer(text, max_length=50, min_length=10, do_sample=False)
 
-demo = gr.Interface(fn=greet, inputs="text", outputs="text")
-demo.launch(share=True)
+print(summary[0]["summary_text"])
+
